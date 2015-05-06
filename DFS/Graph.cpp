@@ -90,8 +90,8 @@ void Graph <Node>::dfs(visit_nodes const& start, visit_nodes const& end, visit_n
 						st.push(*it);
 					}
 				}
-				end(curr);
 			}
+            end(curr);
 		}
 	}
 	delete[] used;
