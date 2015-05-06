@@ -8,7 +8,6 @@ include_directories(${DFS_SOURCE_DIR})
 add_executable(dfs_testing
     dfs_testing.cpp
     Graph.h
-    Graph.cpp
     gtest/gtest-all.cc
     gtest/gtest.h
     gtest/gtest_main.cc)

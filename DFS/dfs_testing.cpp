@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "Graph.cpp"
+#include "Graph.h"
 
 TEST(correctness, my_constructor)
 {
