@@ -39,26 +39,26 @@ namespace {
 
 TEST(correctness, constructor) {
     TextUI* ui = new TextUI(true);
-    TexasHoldem* game = createGame((int)2, (int)100, (int) 10, ui,
+    game* my_game = createGame((int)2, (int)100, (int) 10, ui,
             new HumanPlayer("First player", ui), new HumanPlayer("Second player", ui));
-    delete game;
+    delete my_game;
 }
 
 TEST(correctness, shuffleTest) {
     TextUI* ui = new TextUI(true);
-    TexasHoldem* game = createGame((int)2, (int)100, (int) 10, ui,
+    game* my_game = createGame((int)2, (int)100, (int) 10, ui,
             new HumanPlayer("First player", ui), new HumanPlayer("Second player", ui));
     open_card cards[9];
     for (int i = 0; i < N; i++) {
-        game->shuffle();
+        my_game->shuffle();
         for (int j = 0; j < 5; j++) {
-            game->openNext();
-            cards[j] = game->board.back();
+            my_game->openNext();
+            cards[j] = my_game->board.back();
         }
-        cards[5] = game->players[0].hand[0];
-        cards[6] = game->players[0].hand[1];
-        cards[7] = game->players[1].hand[0];
-        cards[8] = game->players[1].hand[1];
+        cards[5] = my_game->players[0].hand[0];
+        cards[6] = my_game->players[0].hand[1];
+        cards[7] = my_game->players[1].hand[0];
+        cards[8] = my_game->players[1].hand[1];
 
         for (int j = 0; j < 9; j++) {
             EXPECT_TRUE(cards[j].getRank() >= 2);
@@ -67,12 +67,12 @@ TEST(correctness, shuffleTest) {
             EXPECT_EQ(1, std::count(cards, cards + 9, cards[j]));
         }
     }
-    delete game;
+    delete my_game;
 }
 
 TEST(correctness, evaluateCombination) {
     TextUI* ui = new TextUI(true);
-    TexasHoldem* game = createGame((int)2, (int)100, (int) 10, ui,
+    game* my_game = createGame((int)2, (int)100, (int) 10, ui,
             new HumanPlayer("First player", ui), new HumanPlayer("Second player", ui));
     std::pair<size_t, open_card*> out = readCards(testFile);
     open_card *testCards = out.second;
@@ -86,9 +86,9 @@ TEST(correctness, evaluateCombination) {
 
     int *valueI, *valueJ;
     for (size_t i = 0; i < out.first / 5; i++) {
-        valueI = game->evaluate(&testCards[5 * i]);
+        valueI = my_game->evaluate(&testCards[5 * i]);
         for (size_t j = 0; j < out.first / 5; j++) {
-            valueJ = game->evaluate(&testCards[5 * j]);
+            valueJ = my_game->evaluate(&testCards[5 * j]);
             if (i != j) {
                 EXPECT_EQ(i < j ? -1 : 1, int7cmp(valueI, valueJ));
                 if ((i < j ? -1 : 1) != int7cmp(valueI, valueJ)) {
@@ -104,12 +104,12 @@ TEST(correctness, evaluateCombination) {
     }
 
     delete[] testCards;
-    delete game;
+    delete my_game;
 }
 
 TEST(correctness, pickCombination) {
     TextUI* ui = new TextUI(true);
-    TexasHoldem* game = createGame((int)2, (int)100, (int) 10, ui,
+    game* my_game = createGame((int)2, (int)100, (int) 10, ui,
             new HumanPlayer("First player", ui), new HumanPlayer("Second player", ui));
     std::pair<size_t, open_card*> out = readCards(handFile);
     open_card *testCards = out.second;
@@ -124,7 +124,7 @@ TEST(correctness, pickCombination) {
     }
 
     for (int i = 0; i < (int) out.first / 7; i++) {
-        std::pair<open_card*, int*> result = game->highestComb(&shuffledCards[i * 7]);
+        std::pair<open_card*, int*> result = my_game->highestComb(&shuffledCards[i * 7]);
         for (int j = 0; j < 5; j++) {
             if (std::count(testCards + i * 7, testCards + i * 7 + 5, result.first[j]) != 1) {
                 int x = 0;
@@ -138,5 +138,5 @@ TEST(correctness, pickCombination) {
 
     delete[] testCards;
     delete[] shuffledCards;
-    delete game;
+    delete my_game;
 }

@@ -15,7 +15,7 @@ class Player;
 class deck;
 class TextUI;
 
-class TexasHoldem {
+class game {
 private:
     struct PlayerData {
         int cash;
@@ -47,9 +47,9 @@ private:
     template <class First, class... Rest>
     void addPlayers(int cnt, First* first, Rest* ... rest);
 
-    TexasHoldem();
+    game();
     template <class ... Players>
-    friend TexasHoldem* createGame(int n, int initCash, int smallBlind,
+    friend game* createGame(int n, int initCash, int smallBlind,
                                    TextUI* ui, Players* ... p);
 
     TextUI* UI;
@@ -58,7 +58,7 @@ private:
     FRIEND_TEST(correctness, pickCombination);
     FRIEND_TEST(correctness, shuffleTest);
 public:
-    ~TexasHoldem();
+    ~game();
     void run();
 };
 

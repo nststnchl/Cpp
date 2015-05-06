@@ -7,7 +7,7 @@ class close_card : card {
 public:
     close_card();
     close_card(const suit, const int);
-    friend class TexasHoldem;
+    friend class game;
 };
 
 

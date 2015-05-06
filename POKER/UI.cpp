@@ -153,10 +153,18 @@ int TextUI::askForUnsigned(Player *p, int minBet) {
     if (!noUI) {
         std::cout << "[" << p->getName() << "] Enter your bet (min is " << minBet << ", 0 for check/fold): ";
         std::string s;
-        std::getline(std::cin, s);
+        std::cin >> s;
         return std::stoul(s);
+    } else {
+        int a = rand () % 500;
+        
+        if (a % 3 == 0) {
+            return 0;
+        } else if (a % 3 == 1) {
+            return minBet;
+        } else {
+            return minBet * 3 / 2;
+        }
     }
-    else
-        return 0;
 }
 

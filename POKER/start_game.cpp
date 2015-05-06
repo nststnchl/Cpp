@@ -6,15 +6,15 @@
 #include "close_card.h"
 
 template <class ... Players>
-TexasHoldem* createGame(int n, int initCash, int smallBlind, TextUI* ui, Players* ... p) {
-    TexasHoldem* result = new TexasHoldem();
+game* createGame(int n, int initCash, int smallBlind, TextUI* ui, Players* ... p) {
+    game* result = new game();
     result->UI = ui;
     result->playersN = n;
     result->smallBlind = smallBlind;
     result->cl_deck = std::vector <close_card>();
     result->board = std::vector <open_card>();
 
-    result->players = new TexasHoldem::PlayerData[result->playersN];
+    result->players = new game::PlayerData[result->playersN];
     result->addPlayers(0, p...);
 
     for (int i = 0; i < result->playersN; i++) {
@@ -27,14 +27,14 @@ TexasHoldem* createGame(int n, int initCash, int smallBlind, TextUI* ui, Players
 }
 
 template <class First>
-void TexasHoldem::addPlayers(int cnt, First* first) {
+void game::addPlayers(int cnt, First* first) {
     if (cnt < playersN) {
         players[cnt].p = first;
     }
 }
 
 template <class First, class... Rest>
-void TexasHoldem::addPlayers(int cnt, First* first, Rest* ... rest) {
+void game::addPlayers(int cnt, First* first, Rest* ... rest) {
     if (cnt < playersN) {
         players[cnt].p = first;
         addPlayers(++cnt, rest...);

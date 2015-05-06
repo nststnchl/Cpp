@@ -24,3 +24,8 @@ if [[ -f poker_testing ]]
 then
     rm poker_testing
 fi
+
+if [[ -f main ]]
+then
+    rm main
+fi

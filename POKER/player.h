@@ -17,6 +17,7 @@ public:
     std::string getName() const { return name; }
     virtual ~Player() {};
     virtual int bet(int minBet, deck state) = 0;
+    virtual bool getUI() = 0;
 };
 
 #endif //_H_PLAYER_

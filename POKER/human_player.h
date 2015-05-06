@@ -12,6 +12,7 @@ public:
     HumanPlayer(std::string s, TextUI* ui): Player(s) { UI = ui; }
     ~HumanPlayer() {};
     int bet(int minBet, deck state);
+    bool getUI();
 };
 
 #endif //_H_HUMAN_PLAYER_
